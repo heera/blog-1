@@ -149,9 +149,19 @@
         });
     }
 
-    function post(key, value) {
+    function addData(key, value) {
         l.setPublicData(key, value, function(response) {
             console.log(response);
+        });
+    }
+
+    function savePost(namespace, slug, title, content) {
+        l.getPublicData('posts_titles', function (response) {
+            var postTitles = response.message ? $.parseJSON(response.message) : {};
+            postTitles[slug] = title;
+
+            addData('posts_titles', JSON.stringify(postTitles));
+            addData(namespace + ':' + slug, content);
         });
     }
 </script>
