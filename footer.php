@@ -47,18 +47,18 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="js/clean-blog.min.js"></script>
-<script src="http://letrol.dev/js/inject.min.js"></script>
+<script src="http://pizzazz.letrol.com/js/inject.min.js"></script>
 
 <script>
     var params = {
         'address': "ws://pizzazz.letrol.com:8080",
-        'publicKey': 'test-public-key'
+        'public_key': 'test-public-key'
     };
 
-    var siteUrl = '<?php echo $siteUrl ?>';
+    var siteUrl = 'http://localhost:8000/letrol_blog';
     var blogPosts;
 
-    var l = new letrol(params);
+    var l = new Letrol(params);
     l.onSuccess(function() {
         l.ping(function (data) {
             console.log(data.message);
@@ -120,22 +120,22 @@
             });
         });
         /*blogPosts.forEach(function(blogPost) {
-            var postHtml = '<div class="post-preview"> ' +
-                '<a class="post-link" data-post-id="' + i + '" href="' + siteUrl + '/posts/' + i + '">' +
-                '<h2 class="post-title">' +
-                blogPost.title +
-                '</h2>' +
-                '</a>' +
-                '</div>' +
-                '<hr>';
-            $('.posts').append(postHtml);
-            i++;
-        });*/
+         var postHtml = '<div class="post-preview"> ' +
+         '<a class="post-link" data-post-id="' + i + '" href="' + siteUrl + '/posts/' + i + '">' +
+         '<h2 class="post-title">' +
+         blogPost.title +
+         '</h2>' +
+         '</a>' +
+         '</div>' +
+         '<hr>';
+         $('.posts').append(postHtml);
+         i++;
+         });*/
     }
 
     function login(email, password) {
         var params = {
-            'publicKey': 'test-public-key',
+            'public_key': 'test-public-key',
             'auth_type': 'password',
             'auth_params': {
                 'email': email,
@@ -165,6 +165,7 @@
         });
     }
 </script>
+
 
 </body>
 
