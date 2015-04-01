@@ -48,14 +48,14 @@
 <!-- Custom Theme JavaScript -->
 <script src="js/clean-blog.min.js"></script>
 <script src="http://pizzazz.letrol.com/js/inject.min.js"></script>
-
 <script>
     var params = {
-        'address': "ws://pizzazz.letrol.com:8080",
+        'address': "<?php echo getenv('APP_ENV') == 'local' ? 'ws://192.168.10.10:8080' : 'ws://pizzazz.letrol.com:8080' ?>",
+        //'address': "ws://192.168.10.10:8080",
         'public_key': 'test-public-key'
     };
 
-    var siteUrl = 'http://localhost:8000/letrol_blog';
+    var siteUrl = "<?php echo getenv('APP_ENV') == 'local' ? 'http://localhost:8000/letrol_blog' : 'http://www.halalit.net/Letrol' ?>";
     var blogPosts;
 
     var l = new Letrol(params);
@@ -64,10 +64,7 @@
             console.log(data.message);
         });
 
-        l.getPublicData('blog_posts:developer', function(response) {
-            blogPosts = $.parseJSON(response.message);
-            getContent();
-        });
+        getContent();
 
     });
 
@@ -97,7 +94,7 @@
         console.log(path);
         var postKey = path.replace('/', ':');
 
-        l.getPublicData(postKey, function(response) {
+        l.get('public/' + postKey, function(response) {
             $('.posts').html(response.message);
         });
     }
@@ -105,7 +102,8 @@
     function buildHomePage() {
         var i = 0;
         $('.posts').html('');
-        l.getPublicData('posts_titles', function (response) {
+        l.get('public/posts_titles', function (response) {
+            console.log(response);
             var postTitles = $.parseJSON(response.message);
             $.each(postTitles, function(key, value) {
                 var postHtml = '<div class="post-preview"> ' +
@@ -150,13 +148,13 @@
     }
 
     function addData(key, value) {
-        l.setPublicData(key, value, function(response) {
+        l.set('public/' + key, value, function(response) {
             console.log(response);
         });
     }
 
     function savePost(namespace, slug, title, content) {
-        l.getPublicData('posts_titles', function (response) {
+        l.get('public/posts_titles', function (response) {
             var postTitles = response.message ? $.parseJSON(response.message) : {};
             postTitles[slug] = title;
 
