@@ -63,20 +63,6 @@
                 $('.posts').append(postHtml);
             });
         }
-
-        function savePost(slug, title, content) {
-            socketize.pushOnList('public/blog_posts', {
-                slug: slug,
-                title: title,
-                content: content
-            }).then(function () {
-                    alert('Posted!');
-                },
-                function (error) {
-                    alert(error.message);
-                }
-            );
-        }
     </script>
 
 <?php require 'footer.php' ?>
