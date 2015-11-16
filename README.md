@@ -4,3 +4,5 @@
 
 To make this blog yours, please change the public key in
 index.html and admin.html with your Socketize app's public key.
+
+[**Demo**](https://socketize.github.io/blog)
